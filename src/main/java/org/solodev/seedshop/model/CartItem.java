@@ -26,7 +26,7 @@ public class CartItem {
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
-    private int quantity;
+    private Integer quantity;
 
     @Override
     public final boolean equals(Object o) {

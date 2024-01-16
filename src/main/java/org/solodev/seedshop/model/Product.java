@@ -19,7 +19,7 @@ public class Product {
 
     private String name;
     private String description;
-    private double price;
+    private Double price;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -29,9 +29,9 @@ public class Product {
     private String imageUrl;
 
     @Column(name="stock_quantity")
-    private int stockQuantity;
+    private Integer stockQuantity;
 
-    private double rating;
+    private Double rating;
 
     @Override
     public final boolean equals(Object o) {

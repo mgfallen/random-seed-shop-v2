@@ -26,7 +26,7 @@ public class OrderItem {
     @JoinColumn(name = "order_id")
     private CustomOrder order;
 
-    private int quantity;
+    private Integer quantity;
 
     @Override
     public final boolean equals(Object o) {

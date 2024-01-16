@@ -25,7 +25,7 @@ public class Cart {
     @ToString.Exclude
     private List<CartItem> cartItems;
 
-    private int totalItems;
+    private Integer totalItems;
 
     @Override
     public final boolean equals(Object o) {
