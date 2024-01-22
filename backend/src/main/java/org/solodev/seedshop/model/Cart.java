@@ -27,6 +27,8 @@ public class Cart {
 
     private Integer totalItems;
 
+    private boolean checkedOut;
+
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;

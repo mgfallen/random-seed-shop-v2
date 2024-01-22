@@ -4,6 +4,8 @@ import ProductList from "./components/ProductList";
 import {Route, Routes} from 'react-router-dom';
 import CategoryForm from "./components/CategoryForm";
 import CategoryList from "./components/CategoryList";
+import CartList from "./components/CartList";
+import OrderList from "./components/OrderList";
 
 
 const App = () => {
@@ -14,6 +16,9 @@ const App = () => {
 
             <Route path="/categories/add" element={<CategoryForm />} />
             <Route path="/categories" element={<CategoryList />} />
+
+            <Route path="/carts" element={<CartList/>} />
+            <Route path="/orders" element={<OrderList/>} />
         </Routes>
     );
 };

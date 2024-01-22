@@ -15,6 +15,8 @@ import java.util.stream.Collectors;
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
+
+    // we can use default model mapper because we don't have nested entities in the caterogy
     private final ModelMapper modelMapper;
 
     @Autowired

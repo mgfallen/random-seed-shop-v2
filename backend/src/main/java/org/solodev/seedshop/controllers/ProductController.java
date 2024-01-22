@@ -26,16 +26,16 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Product>> getAllProducts() {
-        List<Product> products = productService.getAllProducts();
+    public ResponseEntity<List<ProductDTO>> getAllProducts() {
+        List<ProductDTO> products = productService.getAllProducts();
             return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(products);
     }
 
     @GetMapping("/{productId}")
-    public ResponseEntity<Product> getProductById(@PathVariable Long productId) {
-        Product product = productService.getProductById(productId);
+    public ResponseEntity<ProductDTO> getProductById(@PathVariable Long productId) {
+        ProductDTO product = productService.getProductById(productId);
         if (product != null) {
             return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(product);
         } else {

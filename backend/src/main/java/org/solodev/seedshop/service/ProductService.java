@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -21,16 +21,45 @@ public class ProductService {
         this.productMapper = productMapper;
     }
 
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+    public List<ProductDTO> getAllProducts() {
+        return productRepository.findAll().stream().map(productMapper::mapEntityToDto).toList();
     }
 
-    public Product getProductById(Long productId) {
-        return productRepository.findById(productId).orElse(null);
+    public ProductDTO getProductById(Long productId) {
+        return productMapper.mapEntityToDto(productRepository.findById(productId).orElse(null));
     }
 
     public void addProduct(ProductDTO productDTO) {
         Product product = productMapper.mapDtoToEntity(productDTO);
         productRepository.save(product);
     }
+
+    @SuppressWarnings({})
+    public void updateProduct(Product product) throws Exception {
+        Long productId = product.getId();
+
+        if (productId == null) {
+            return;
+        }
+
+        Optional<Product> existingProductOptional = productRepository.findById(productId);
+
+        if (existingProductOptional.isPresent()) {
+            Product existingProduct = existingProductOptional.get();
+
+            // Update fields you want to allow modification
+            existingProduct.setName(product.getName());
+            existingProduct.setDescription(product.getDescription());
+            existingProduct.setPrice(product.getPrice());
+            existingProduct.setStockQuantity(product.getStockQuantity());
+            existingProduct.setRating(product.getRating());
+            existingProduct.setCategory(product.getCategory());
+
+            // Save the updated product
+            productRepository.save(existingProduct);
+        } else {
+           throw new Exception("Product doesn't exist!");
+        }
+    }
+
 }

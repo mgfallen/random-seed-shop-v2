@@ -1,5 +1,6 @@
 package org.solodev.seedshop.serialization;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
 import org.solodev.seedshop.dto.ProductDTO;
@@ -13,29 +14,31 @@ import org.springframework.stereotype.Component;
 public class ProductMapper {
 
     private final ModelMapper modelMapper;
+    private final CategoryRepository categoryRepository;
 
-    @Autowired
-    public ProductMapper(CategoryRepository categoryRepository, ModelMapper modelMapper) {
+
+    public ProductMapper(ModelMapper modelMapper, CategoryRepository categoryRepository1) {
         this.modelMapper = modelMapper;
-
-        TypeMap<ProductDTO, Product> typeMap = modelMapper.createTypeMap(ProductDTO.class, Product.class);
-        typeMap.addMappings(mapping -> mapping.skip(Product::setCategory));
-
-        typeMap.setPreConverter(context -> {
-            ProductDTO source = context.getSource();
-            if (source.getCategoryId() != null) {
-                Category category = categoryRepository.findById(source.getCategoryId()).orElse(null);
-                context.getDestination().setCategory(category);
-            }
-            return context.getDestination();
-        });
+        this.categoryRepository = categoryRepository1;
     }
 
+
     public ProductDTO mapEntityToDto(Product entity) {
-        return modelMapper.map(entity, ProductDTO.class);
+        ProductDTO dto = modelMapper.map(entity, ProductDTO.class);
+        if (entity.getCategory() != null) {
+            dto.setCategoryId(entity.getCategory().getId());
+        }
+        return dto;
     }
 
     public Product mapDtoToEntity(ProductDTO dto) {
-        return modelMapper.map(dto, Product.class);
+        Product entity = modelMapper.map(dto, Product.class);
+        if (dto.getCategoryId() != null) {
+            Category category = categoryRepository.findById(dto.getCategoryId())
+                    .orElseThrow(() -> new EntityNotFoundException("Category not found with id: " + dto.getCategoryId()));
+            entity.setCategory(category);
+        }
+        return entity;
     }
+
 }
