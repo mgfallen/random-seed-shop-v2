@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
@@ -36,19 +37,20 @@ public class ProductController {
     public ResponseEntity<Product> getProductById(@PathVariable Long productId) {
         Product product = productService.getProductById(productId);
         if (product != null) {
-            return ResponseEntity.ok(product);
+            return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(product);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
-    @PostMapping
-    public ResponseEntity<ProductDTO> addProduct(@Valid @RequestBody ProductDTO productDTO, UriComponentsBuilder builder) {
+    @PostMapping("/add")
+    public ResponseEntity<ProductDTO> addProduct(@Valid @RequestBody ProductDTO productDTO) {
         productService.addProduct(productDTO);
-        return ResponseEntity.created(builder
-                        .path("/api/products/{productId}")
-                        .build(Map.of("productId", productDTO.getId())))
+
+        return ResponseEntity
+                .created(URI.create("/api/products/" + productDTO.getId()))
                 .contentType(MediaType.APPLICATION_JSON)
                 .build();
     }
+
 
 }

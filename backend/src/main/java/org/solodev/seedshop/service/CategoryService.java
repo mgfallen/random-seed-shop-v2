@@ -1,5 +1,6 @@
 package org.solodev.seedshop.service;
 
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.solodev.seedshop.dto.CategoryDTO;
 import org.solodev.seedshop.model.Category;
@@ -29,6 +30,7 @@ public class CategoryService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public CategoryDTO addCategory(CategoryDTO categoryDTO) {
         Category category = modelMapper.map(categoryDTO, Category.class);
         Category savedCategory = categoryRepository.save(category);

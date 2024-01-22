@@ -7,7 +7,7 @@ import org.solodev.seedshop.model.Category;
 
 @Data
 public class ProductDTO {
-    @NotEmpty(message = "id could not be empty")
+//    @NotEmpty(message = "id could not be empty")
     private Long id;
 
     @NotEmpty(message = "name could not be empty")
@@ -16,6 +16,8 @@ public class ProductDTO {
     @Min(value = 0, message = "price could be only positive number")
     private Double price;
     private Long categoryId;
+
+    private String imageUrl;
 
     @Min(value = 0, message = "stock quantity could be only non-negative number")
     private Integer stockQuantity;

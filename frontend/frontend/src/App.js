@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState, useEffect} from 'react';
+import ProductForm from "./components/ProductForm";
+import ProductList from "./components/ProductList";
+import {Route, Routes} from 'react-router-dom';
+import CategoryForm from "./components/CategoryForm";
+import CategoryList from "./components/CategoryList";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+
+const App = () => {
+    return (
+        <Routes>
+            <Route path="/products/add" element={<ProductForm/>}/>
+            <Route path="/products" element={<ProductList/>}/>
+
+            <Route path="/categories/add" element={<CategoryForm />} />
+            <Route path="/categories" element={<CategoryList />} />
+        </Routes>
+    );
+};
 
 export default App;

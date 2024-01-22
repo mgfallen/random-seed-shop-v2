@@ -11,7 +11,7 @@ import java.util.List;
 
 import java.util.stream.Collectors;
 
-@Service
+//@Service
 public class CustomOrderService {
 
     private final CustomOrderRepository orderRepository;
@@ -45,18 +45,18 @@ public class CustomOrderService {
         orderRepository.save(order);
     }
 
-    public void createOrderOnCart(Long cartId) {
-        CartDTO cartDTO = cartService.getCart(cartId);
-        if (cartDTO != null && cartDTO.getUserId() != null) {
-            CustomOrderDTO orderDTO = new CustomOrderDTO();
-            orderDTO.setUserId(cartDTO.getUserId());
-            // Дополнительные поля заказа, если необходимо
-
-            createOrder(orderDTO);
-
-            // Дополнительная логика по очистке корзины или обновлению статуса заказа в корзине
-            // Например:
-            // cartService.clearCart(cartId);
-        }
-    }
+//    public void createOrderOnCart(Long cartId) {
+//        CartDTO cartDTO = cartService.getCart(cartId);
+//        if (cartDTO != null && cartDTO.getUserId() != null) {
+//            CustomOrderDTO orderDTO = new CustomOrderDTO();
+//            orderDTO.setUserId(cartDTO.getUserId());
+//            // Дополнительные поля заказа, если необходимо
+//
+//            createOrder(orderDTO);
+//
+//            // Дополнительная логика по очистке корзины или обновлению статуса заказа в корзине
+//            // Например:
+//            // cartService.clearCart(cartId);
+//        }
+//    }
 }

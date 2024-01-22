@@ -26,15 +26,15 @@ public class CartService {
         this.productService = productService;
     }
 
-    public CartDTO getCart(Long cartId) {
-        Cart cart = cartRepository.findById(cartId).orElse(null);
-        return (cart != null) ? cartMapper.mapEntityToDto(cart) : null;
-    }
+//    public CartDTO getCart(Long cartId) {
+//        Cart cart = cartRepository.findById(cartId).orElse(null);
+//        return (cart != null) ? cartMapper.mapEntityToDto(cart) : null;
+//    }
 
-    public List<CartItemDTO> getCartItems(Long cartId) {
-        Cart cart = cartRepository.findById(cartId).orElse(null);
-        return (cart != null) ? cartMapper.mapEntityToDto(cart.getCartItems()) : null;
-    }
+//    public List<CartItemDTO> getCartItems(Long cartId) {
+//        Cart cart = cartRepository.findById(cartId).orElse(null);
+//        return (cart != null) ? cartMapper.mapEntityToDto(cart.getCartItems()) : null;
+//    }
 
     public void addItemToCart(Long cartId, CartItemDTO cartItemDTO) {
         Cart cart = cartRepository.findById(cartId).orElse(null);
